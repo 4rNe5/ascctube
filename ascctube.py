@@ -2,12 +2,14 @@ import cv2
 import os
 import re
 from pytube import YouTube
+# TODO : 니코동, 비리비리, 허브 다운 함수 제작
 
 def is_valid_url(url):
+    # TODO : 해당 부분 다양한 식 감지하도록 Refactor 또는 __main__에 통합.
     pattern = re.compile(r'(https?://)?(www\.)?youtube\.com/watch\?v=[\w-]{11}')
     return pattern.match(url) is not None
 
-def download_video(url, resolution):
+def download_yt_video(url, resolution):
     yt = YouTube(url)
     video = yt.streams.filter(file_extension='mp4', res=resolution).first()
     if video is None:
@@ -16,6 +18,7 @@ def download_video(url, resolution):
     return True
 
 def video_to_ascii(video_path, output_path):
+    # TODO : 해상도 대응 변경사항 제작
     cap = cv2.VideoCapture(video_path)
     ascii_chars = ["@", "#", "S", "%", "?", "*", "+", ";", ":", ",", "."]
 
@@ -48,6 +51,7 @@ def video_to_ascii(video_path, output_path):
     cap.release()
     cv2.destroyAllWindows()
 
+# TODO : URL 판독 정규식 제작 후 분기 함수로 Refactor
 if __name__ == "__main__":
     while True:
         url = input("Input Youtube Video Link for Convert to ASCII Art : ")
@@ -59,7 +63,7 @@ if __name__ == "__main__":
     while True:
         resolution = input("Input Video Resolution (ex: 480p, 720p...) : ")
         print("Convert Video to ASCII Art.....")
-        if download_video(url, resolution):
+        if download_yt_video(url, resolution):
             break
         else:
             print("Uncorrect Resolution. Please Enter Available Resolution")
