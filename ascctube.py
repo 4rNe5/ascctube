@@ -1,7 +1,7 @@
 import cv2
 import os
 import re
-from pytube import YouTube
+from pytubefix import YouTube #pytube 모듈의 호환성 문제로 pytubefix 모듈 사용
 # TODO : 니코동, 비리비리, 허브 다운 함수 제작
 
 def is_valid_url(url):
